@@ -372,7 +372,7 @@ def rewrite_links(fragment_html: str, post: Post, by_id: dict[int, Post]) -> str
             target = by_id[target_id]
             assert target.relpath is not None
             relative = os.path.relpath(
-                str(target.relpath), start=str(post.relpath.parent)
+                str(target.relpath.with_suffix(".html")), start=str(post.relpath.parent)
             ).replace(os.sep, "/")
             anchor.set("href", urllib.parse.quote(relative, safe="/()[]-_.~"))
         else:
@@ -607,7 +607,9 @@ def render_index(posts: dict[int, Post]) -> str:
             lines.extend([f"## {current_year}", ""])
         assert post.relpath is not None
         label = f"{post.year:04d}-{post.month:02d}-{post.day:02d} — {post.title}"
-        href = urllib.parse.quote(str(post.relpath), safe="/()[]-_.~")
+        href = urllib.parse.quote(
+            str(post.relpath.with_suffix(".html")), safe="/()[]-_.~"
+        )
         lines.append(f"- [{label}]({href})")
     return "\n".join(lines).rstrip() + "\n"
 
