@@ -1,0 +1,52 @@
+name: Sync Blogfa archive
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Run away from the top of the hour, when scheduled Actions are busiest.
+    - cron: "23 04 * * *"
+      timezone: "America/Vancouver"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-blogfa-archive
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the archive
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+          sudo apt-get update
+          sudo apt-get install --yes pandoc
+
+      - name: Sync new Blogfa posts
+        run: python scripts/sync_blog.py --heartbeat-days 45
+
+      - name: Commit changes
+        shell: bash
+        run: |
+          git add --all
+          if git diff --cached --quiet; then
+            echo "No archive changes to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: sync Blogfa archive"
+          git push
