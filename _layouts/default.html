@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#341e18">
+    <meta name="description" content="{{ site.description | escape }}">
+    <title>{% if page.url == '/' %}{{ site.title }}{% else %}{{ page.title | escape }} | {{ site.title }}{% endif %}</title>
+    <link rel="canonical" href="{{ page.url | absolute_url }}">
+    <link rel="icon" href="{{ '/assets/img/cafe-mark.svg' | relative_url }}" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  </head>
+  <body class="{% if page.post_id %}page-writing{% elsif page.url == '/' %}page-home{% elsif page.url == '/archive/' %}page-archive{% else %}page-simple{% endif %}">
+    <a class="skip-link" href="#main">رفتن به متن</a>
+    <header class="site-header">
+      <div class="header-inner section-wrap">
+        <a class="brand" href="{{ '/' | relative_url }}" aria-label="کافه قاصدک، صفحهٔ اصلی"><img src="{{ '/assets/img/cafe-mark.svg' | relative_url }}" width="42" height="42" alt=""><span>کافه <strong>قاصدک</strong><small>نوشته‌هایی کنار یک فنجان قهوه</small></span></a>
+        <nav class="main-nav" aria-label="ناوبری اصلی"><a {% if page.url == '/' %}aria-current="page"{% endif %} href="{{ '/' | relative_url }}">خانه</a><a {% if page.url == '/archive/' %}aria-current="page"{% endif %} href="{{ '/archive/' | relative_url }}">آرشیو نوشته‌ها</a><a href="{{ '/فهرست.html' | relative_url }}">فهرست زمانی</a></nav>
+      </div>
+    </header>
+    <main id="main">
+      {% if page.post_id %}
+        {% include writing.html %}
+      {% elsif page.url == '/' or page.url == '/archive/' %}
+        {{ content }}
+      {% else %}
+        <div class="simple-page section-wrap"><div class="paper-content">{{ content }}</div></div>
+      {% endif %}
+    </main>
+    <footer class="site-footer"><div class="section-wrap footer-inner"><a class="footer-brand" href="{{ '/' | relative_url }}">کافه قاصدک <span aria-hidden="true">✳</span></a><p>صفحه هنوز می‌چرخد؛ قصه هنوز ادامه دارد.</p><a href="#main">برگشت به بالا ↑</a></div></footer>
+  </body>
+</html>

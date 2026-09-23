@@ -1,12 +1,9 @@
 title: کافه قاصدک
-description: نوشته‌ها از سال ۱۳۸۸ تا امروز
-
+description: جایی برای نوشته‌ها، خاطره‌ها و فنجان‌های قهوه
 lang: fa
-
-theme: minima
-
 url: "https://sasanfar.github.io"
 baseurl: "/cafe-ghasedak"
+markdown: kramdown
 
 plugins:
   - jekyll-relative-links
@@ -20,3 +17,8 @@ defaults:
       path: ""
     values:
       layout: default
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock

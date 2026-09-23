@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="نشان کافه قاصدک">
+  <rect width="64" height="64" rx="13" fill="#a25440"/>
+  <path d="M12 39h32v4c0 8-6 13-15 13S12 51 12 43v-4Z" fill="#f1d7ad"/>
+  <path d="M44 41h5c8 0 8 11-1 11h-5" fill="none" stroke="#f1d7ad" stroke-width="4"/>
+  <ellipse cx="28" cy="39" rx="16" ry="5" fill="#f4e3c3"/>
+  <ellipse cx="28" cy="39" rx="12" ry="3" fill="#5b3024"/>
+  <path d="M24 33c-6-9 6-11 1-19m10 19c-6-9 6-11 1-19" fill="none" stroke="#f1d7ad" stroke-width="2" stroke-linecap="round" opacity=".9"/>
+  <circle cx="53" cy="13" r="2" fill="#f1d7ad"/><path d="m53 6 1 3m5 4-3 1m-3 5-1-3m-5-3 3-1" stroke="#f1d7ad" stroke-linecap="round"/>
+</svg>

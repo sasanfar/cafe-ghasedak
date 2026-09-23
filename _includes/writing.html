@@ -1,0 +1,24 @@
+{% assign writings = site.pages | where_exp: "item", "item.post_id" | sort: "post_id" %}
+{% for item in writings %}
+  {% if item.url == page.url %}
+    {% assign older_index = forloop.index0 | minus: 1 %}
+    {% assign newer_index = forloop.index0 | plus: 1 %}
+    {% if older_index >= 0 %}{% assign older = writings[older_index] %}{% endif %}
+    {% assign newer = writings[newer_index] %}
+  {% endif %}
+{% endfor %}
+<div class="writing-shell section-wrap">
+  <nav class="breadcrumbs" aria-label="مسیر صفحه"><a href="{{ '/' | relative_url }}">خانه</a><span aria-hidden="true">/</span><a href="{{ '/archive/' | relative_url }}">آرشیو</a><span aria-hidden="true">/</span><span aria-current="page">{{ page.title | escape }}</span></nav>
+  <div class="writing-grid">
+    <article class="writing-paper">
+      <header class="writing-header"><span class="section-kicker">از دفتر کافه · فنجان {{ page.post_id }}</span><h1>{{ page.title | escape }}</h1><div class="writing-meta"><span>{{ page.date_text | default: page.date }}</span>{% if page.author %}<span>نوشتهٔ {{ page.author | escape }}</span>{% endif %}</div></header>
+      <div class="writing-body">{{ content }}</div>
+      <div class="writing-end" aria-hidden="true"><span></span> ✳ <span></span></div>
+      <nav class="post-navigation" aria-label="نوشته‌های دیگر">
+        {% if newer %}<a href="{{ newer.url | relative_url }}"><small>← نوشتهٔ بعدی</small><strong>{{ newer.title | escape }}</strong></a>{% else %}<span></span>{% endif %}
+        {% if older %}<a href="{{ older.url | relative_url }}"><small>نوشتهٔ قبلی →</small><strong>{{ older.title | escape }}</strong></a>{% endif %}
+      </nav>
+    </article>
+    <aside class="writing-aside"><div class="aside-record" aria-hidden="true"><span></span></div><span class="section-kicker">روی میز کافه</span><p>بعضی قصه‌ها با یک فنجان شروع می‌شوند و سال‌ها در خاطر می‌مانند.</p><a href="{{ '/archive/' | relative_url }}">ورق زدن آرشیو ←</a></aside>
+  </div>
+</div>
